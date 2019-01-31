@@ -1,6 +1,8 @@
 # NitroxServerList
 Server list in Flask
 
+**NOTE** Database information is in settings.py. You will require a local postgressql server.
+
 To initalize the database, execute
 ```bash
 python manage.py db init
