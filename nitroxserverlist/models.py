@@ -1,3 +1,8 @@
+"""
+Database model:
+- Server; represents a server in the server list
+- BaseModel is used by all models
+"""
 from flask_sqlalchemy import SQLAlchemy
 
 

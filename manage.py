@@ -1,7 +1,16 @@
+"""
+Some Flask tools for managing the DB
+
+`python manage.py [cmds]` -- similar to Django
+"""
+
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from settings import app
-from models import db
+
+from nitroxserverlist import (
+    app,
+    db,
+)
 
 
 migrate = Migrate(app, db)
