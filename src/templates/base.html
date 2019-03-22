@@ -1,0 +1,37 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {# material #}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='materialize/css/materialize.min.css') }}">
+    {# https://github.com/lipis/flag-icon-css #}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    
+    {% block head %}{% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+
+    <body>
+
+        {% include 'components/navbar.html' %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='materialize/js/materialize.min.js') }}"></script>
+
+        <div id = "wrapper">
+
+            {% block content %}{% endblock %}
+
+        </div>
+
+</html>
