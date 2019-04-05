@@ -3,8 +3,6 @@ The goal of this application factory is to overcome
 circular imports while still creating readable code
 """
 
-import logging
-
 from flask import Flask
 
 
@@ -21,7 +19,7 @@ class Factory:
         4. Register any blueprints
     """
 
-    def __init__(self, mode, debug=False, config_object='settings'):
+    def __init__(self, mode, config_object='settings'):
         """
             mode: celery or app
             debug: True or False
@@ -30,12 +28,7 @@ class Factory:
         assert mode in ('app', 'celery'), f"Bad mode {mode}. Must be 'app' or 'celery'"
 
         self.mode = mode
-        self.debug = debug
         self.config_object = config_object
-
-        # configure logger
-        self.logger = logging.getLogger()
-        self.logger.setLevel(debug)
         
         # initalize the worker
         self.app = None
@@ -51,8 +44,8 @@ class Factory:
         """
         # initialize Flask app
         self.app = Flask(__name__, static_url_path='/static/')
-        self.app.debug = self.debug
         self.app.config.from_object(self.config_object)
+        self.app.logger.info(f'Initialized Flask app with debug={self.app.debug}')
 
         # run setup functions
         self._setup_db()
