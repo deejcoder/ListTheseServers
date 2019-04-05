@@ -10,6 +10,9 @@ from celery import Celery
 celery = Celery(__name__, autofinalize=False)
 
 
-@celery.task
-def ping(a, b):
-    return a + b
+@celery.task(bind=True)
+def get_server_status(self, ip):
+    """
+    Ping a server and determine if it is online or not
+    """
+    return ip

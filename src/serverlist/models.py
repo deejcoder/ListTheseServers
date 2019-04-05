@@ -4,8 +4,7 @@ Database model:
 - BaseModel is used by all models
 """
 
-from app import db
-from common.models import BaseModel
+from common.models import db, BaseModel
 
 
 class Server(BaseModel, db.Model):
