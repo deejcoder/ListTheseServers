@@ -22,14 +22,11 @@
         <table class="highlight">
             <thead>
                 <tr>
-                    <th><i class="material-icons" title="Server country">flag</i></th>
-                    <th><i class="material-icons" title="Server address">cloud</i></th>
+                    <th></th>
+                    <th></th>
                     <th>
-                        <i title="Status" class="material-icons">
-                            signal_cellular_alt
-                        </i>
                     </th>
-                    <th class="right-align">Options</th>
+                    <th class="right-align"></th>
                 </tr>
             </thead>
 
@@ -43,12 +40,12 @@
                     {# server status #}
                     <td>
                         {% if server.status %}
-                            <i title="Online" class="material-icons">
-                                check_circle_outline
+                            <i title="Server available" class="material-icons light-green-text">
+                                check_circle
                             </i>
                         {% else %}
 
-                            <i title="Offline" class="material-icons">
+                            <i title="Server unavailable" class="material-icons">
                                 highlight_off
                             </i>
                         {% endif %}
