@@ -1,5 +1,5 @@
-# NitroxServerList
-This simple web application presents a list of game servers which are filterable. Clients may add servers, which are to be approved by site moderators. The web application will automatically ping the servers to determine their connectivity. These pings will occur periodically in the background every 20 seconds and broadcast to any existing clients; updating the server list.
+# ListTheseServers
+This simple web application presents a list of (game or regular) servers which are filterable. Clients may add servers, which are to be approved by site moderators. The web application will automatically ping the servers to determine their connectivity. These pings will occur periodically in the background every 20 seconds and broadcast to any existing clients; updating the server list.
 
 
 
