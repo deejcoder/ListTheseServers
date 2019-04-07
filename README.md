@@ -3,7 +3,7 @@ This simple web application presents a list of (game or regular) servers which a
 
 
 
-## Technologies used
+### Technologies used
 
 * Flask
 * Celery
@@ -11,12 +11,12 @@ This simple web application presents a list of (game or regular) servers which a
 * Redis
 * React
 
-## Prerequisites
+### Prerequisites
 
 * Ubuntu 16.0.4/Debian 9
 * Python 3.6.*
 
-## Installation
+### Installation
 
 To install all dependencies (assure you have **Python 3.6.\***, this project does not support Python 3.7.* since Celery does not);
 ```bash
@@ -55,8 +55,14 @@ python manage.py db upgrade
 
 ```
 
+Pull submodules
+```bash
+# update submodules: materialize, flag-icon-css etc.
+git submodule update --init --recursive
+```
 
-## Running the web application
+
+### Running the web application
 
 To run the app,
 ```bash
