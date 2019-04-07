@@ -68,13 +68,14 @@ class Factory:
 
         self.celery.conf.broker_url = self.app.config['CELERY_BROKER_URL']
         self.celery.conf.result_backend = self.app.config['CELERY_RESULT_BACKEND']
+        app = self.app
 
         TaskBase = self.celery.Task
         class AppContextTask(TaskBase):
             abstract = True
 
             def __call__(self, *args, **kwargs):
-                with self.app.app_context():
+                with app.app_context():
                     return TaskBase.__call__(self, *args, **kwargs)
         
 
