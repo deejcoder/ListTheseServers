@@ -12,7 +12,7 @@
     -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {# material #}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='materialize/css/materialize.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='materialize/dist/css/materialize.min.css') }}">
     {# https://github.com/lipis/flag-icon-css #}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flag-icon-css/css/flag-icon.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
@@ -26,7 +26,7 @@
 
         {% include 'components/navbar.html' %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='materialize/js/materialize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='materialize/dist/js/materialize.min.js') }}"></script>
 
         <div id = "wrapper">
 

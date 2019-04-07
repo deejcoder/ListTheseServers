@@ -23,9 +23,7 @@
             <thead>
                 <tr>
                     <th><i class="material-icons" title="Server country">flag</i></th>
-                    <th>Server name</th>
                     <th><i class="material-icons" title="Server address">cloud</i></th>
-                    <th>Gamemode</th>
                     <th>
                         <i title="Status" class="material-icons">
                             signal_cellular_alt
@@ -41,9 +39,7 @@
                     <td>
                         <span class="flag-icon flag-icon-{{ server.country }}"></span>
                     </td>
-                    <td>{{ server.server_name }}</td>
                     <td>{{ server.ip_address}}:{{ server.port }}</td>
-                    <td>{{ server.gamemode }}</td>
                     {# server status #}
                     <td>
                         {% if server.status %}
