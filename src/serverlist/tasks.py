@@ -4,15 +4,36 @@ This is mainly for pinging servers to determine their availability
 """
 
 from celery import Celery
+# from celery.utils.log import get_task_logger
+
+from serverlist.models import Server
 
 
-# autofinalize will raise a warning if this is initialized before the app is
-celery = Celery(__name__, autofinalize=False)
+# Init
+celery = Celery('serverlist', autofinalize=False)
 
 
-@celery.task(bind=True)
-def get_server_status(self, ip):
+# Tasks
+@celery.task
+def check_servers_availability():
     """
-    Ping a server and determine if it is online or not
+    Pings a list of servers and determine if it is online or not
     """
-    return ip
+    servers = Server.query.all()
+    if not servers:
+        return 'There are no servers to test the connectivity for...'
+    return f'{servers[0]}: Checking status...' # just for testing, test one server
+
+
+
+# Conf
+BEAT_SCHEDULE = {
+    "server-status-check-task": {
+        "task": "serverlist.tasks.check_servers_availability",
+        "schedule": 20.0
+    }
+}
+
+celery.conf.beat_schedule = BEAT_SCHEDULE
+    
+

@@ -1,12 +1,8 @@
-# Flask configuration (WARNING: not for production)
+# ========= [ Flask  ] ==========
 
 DEBUG = True
 
-# celery
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-
-# postgres
+# ========= [ postgres ]=========
 POSTGRES = {
     'user': 'nitrox',
     'pw': 'nitroxserverlistpass',
@@ -17,5 +13,7 @@ POSTGRES = {
 SQLALCHEMY_DATABASE_URI = 'postgresql://{user}:{pw}@{host}:{port}/{db}'.format(**POSTGRES)
 
 
-
+# ======== [ celery ]=========
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
