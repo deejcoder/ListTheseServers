@@ -11,6 +11,10 @@ This simple web application presents a list of (game or regular) servers which a
 * Redis
 * React
 
+## Prerequisites
+
+* Ubuntu 16.0.4/Debian 9
+* Python 3.6.*
 
 ## Installation
 
