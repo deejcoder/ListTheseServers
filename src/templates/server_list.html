@@ -26,6 +26,11 @@
                     <th>Server name</th>
                     <th><i class="material-icons" title="Server address">cloud</i></th>
                     <th>Gamemode</th>
+                    <th>
+                        <i title="Status" class="material-icons">
+                            signal_cellular_alt
+                        </i>
+                    </th>
                     <th class="right-align">Options</th>
                 </tr>
             </thead>
@@ -39,6 +44,19 @@
                     <td>{{ server.server_name }}</td>
                     <td>{{ server.ip_address}}:{{ server.port }}</td>
                     <td>{{ server.gamemode }}</td>
+                    {# server status #}
+                    <td>
+                        {% if server.status %}
+                            <i title="Online" class="material-icons">
+                                check_circle_outline
+                            </i>
+                        {% else %}
+
+                            <i title="Offline" class="material-icons">
+                                highlight_off
+                            </i>
+                        {% endif %}
+                    </td>
                     {# options #}
                     <td class="right-align">
                         <div class="server-options">

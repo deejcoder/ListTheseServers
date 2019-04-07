@@ -20,6 +20,7 @@ class Server(BaseModel, db.Model):
     country = db.Column(db.String(3), nullable=False)
     ip_address = db.Column(db.String(39), nullable=False) # 39 = max length for ipv6
     port = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.Boolean, nullable=True)
     server_name = db.Column(db.String(120), nullable=False)
     gamemode = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(800), nullable=False)
