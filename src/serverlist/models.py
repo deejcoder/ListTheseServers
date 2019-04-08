@@ -25,6 +25,25 @@ class Server(BaseModel, db.Model):
     gamemode = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(800), nullable=False)
 
+    # last record in ServerActivity
+    last_ping = db.Column(db.Integer, unique=True, nullable=True)
+
 
     def __repr__(self):
         return f'<Server ({self.id}): {self.server_name}>' 
+
+
+class ServerActivity(BaseModel, db.Model):
+    """
+    Model used for logging downtime/uptime of a server
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    server_id = db.Column(db.Integer, db.ForeignKey('servers.id'))
+    timestamp = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.Boolean, nullable=False)
+
+
+    def __init__(self, server_id, timestamp, status):
+        self.server_id = server_id
+        self.timestamp = timestamp
+        self.status = status

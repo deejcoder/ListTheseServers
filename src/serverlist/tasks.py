@@ -7,9 +7,10 @@ This is mainly for pinging servers to determine their availability
 import os
 
 from celery import Celery
+import datetime
 
 from common.models import db
-from serverlist.models import Server
+from serverlist.models import Server, ServerActivity
 
 # Init
 celery = Celery('serverlist', autofinalize=False)
@@ -37,6 +38,32 @@ def send_ping_request(serverid):
 
      # True if the server is online
     server.status = True if check == 0 else False
+
+    if not server.status:
+        db.session.commit()
+
+
+    # check if last ping was longer than 30 minutes ago, if so add record; can prune this later
+    if server.last_ping:
+        try:
+            last_ping = ServerActivity.query.get(server.last_ping)
+
+            if last_ping.timestamp < (datetime.datetime.now() - datetime.timedelta(minutes=1)):
+                add_activity_log(server)
+        except Exception as e:
+            print(e)
+
+    else:
+        add_activity_log(server)
+
+
+def add_activity_log(server):
+    log = ServerActivity(server_id=server.id, timestamp=datetime.datetime.now(), status=server.status)
+    db.session.add(log)
+    # commit first so we can get an ID
+    db.session.commit()
+
+    server.last_ping = log.id
     db.session.commit()
 
 
