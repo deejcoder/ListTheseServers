@@ -16,6 +16,8 @@
     {# https://github.com/lipis/flag-icon-css #}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='flag-icon-css/css/flag-icon.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='visavail/visavail/css/visavail.css') }}">
+
     
     {% block head %}{% endblock %}
 
@@ -27,6 +29,9 @@
         {% include 'components/navbar.html' %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='materialize/dist/js/materialize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='visavail/visavail/js/visavail.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='visavail/vendors/d3/d3.min.js') }}"></script>
+
 
         <div id = "wrapper">
 
