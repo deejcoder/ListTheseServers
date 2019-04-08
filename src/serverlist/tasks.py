@@ -48,7 +48,7 @@ def send_ping_request(serverid):
         try:
             last_ping = ServerActivity.query.get(server.last_ping)
 
-            if last_ping.timestamp < (datetime.datetime.now() - datetime.timedelta(minutes=1)):
+            if last_ping.timestamp < (datetime.datetime.now() - datetime.timedelta(minutes=30)):
                 add_activity_log(server)
         except Exception as e:
             print(e)
