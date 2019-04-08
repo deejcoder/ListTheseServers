@@ -36,11 +36,10 @@ def send_ping_request(serverid):
     server = Server.query.filter_by(id=serverid).first()
     check = os.system(f"ping -c 1 {server.ip_address}")
 
-     # True if the server is online
+    # True if the server is online
+    old_status = server.status
     server.status = True if check == 0 else False
-
-    if not server.status:
-        db.session.commit()
+    db.session.commit()
 
 
     # check if last ping was longer than 30 minutes ago, if so add record; can prune this later
@@ -48,7 +47,10 @@ def send_ping_request(serverid):
         try:
             last_ping = ServerActivity.query.get(server.last_ping)
 
-            if last_ping.timestamp < (datetime.datetime.now() - datetime.timedelta(minutes=30)):
+            # check if 30 mintues passed since last ping, or if status is different
+            if last_ping.timestamp < (datetime.datetime.now() - datetime.timedelta(minutes=30)) \
+                or old_status is not server.status:
+
                 add_activity_log(server)
         except Exception as e:
             print(e)
