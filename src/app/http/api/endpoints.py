@@ -1,15 +1,18 @@
-from flask import Blueprint, Flask, g, json, request
+import time
+
+from flask import Blueprint
+from sqlalchemy import desc
+
+from app.common import json_response
+from app.servers.models import Server, ServerActivity
 from flask_cors import CORS
 
-from app.servers.models import Server, ServerActivity
-
-from .middlewares import login_required
 
 bp = Blueprint('endpoints', __name__)
 CORS(bp)
 
 
-@bp.route('/')
+@bp.route('/api/servers')
 def index():
     """ returns all servers sorted by status """
     servers = Server.query.order_by(desc(Server.status)).all()
@@ -33,7 +36,11 @@ def activity(id):
 
     activity = {
         'interval_s': 30 * 60, # 30 minutes
-        'data': server_activity_list
+        'data': list(activity_formatted)
     }
 
     return json_response(activity)
+
+
+
+
