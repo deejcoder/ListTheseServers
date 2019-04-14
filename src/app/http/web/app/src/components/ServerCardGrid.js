@@ -1,7 +1,9 @@
 import React from 'react';
-import APIClient from '../../apiClient';
-import ServerCard from '../ServerCard';
 
+import { Grid } from '@material-ui/core';
+
+import APIClient from '../api/APIClient';
+import ServerCardGridRow from './ServerCardGridRow';
 
 class ServerCardGrid extends React.Component {
     constructor(props) {
@@ -42,22 +44,22 @@ class ServerCardGrid extends React.Component {
 
     render() {
 
-        let servers = []
-        Object.values(this.state.servers).map((server, index) => {
-            servers.push(
-                <ServerCard
-                    key={index}
-                    serverName={server.server_name}
-                    ipAddress={server.ip_address}
-                    port={server.port}
-                    description={server.description}
-                    status={server.status}
-                />
-            )
-        })
+        // organize cards into a grid (e.g 4xN matrix)
+        let grid = [], output = [], servers = this.state.servers;
+        while(servers.length) grid.push(servers.splice(0, 4));
+
+        grid.map((row) => {
+            output.push(
+                <Grid container spacing={8}>
+                    <Grid container item xs={5} spacing={24}>
+                        <ServerCardGridRow items={row} />
+                    </Grid>
+                </Grid>
+            );
+        });
         return (
             <div id="serverlist">
-                {servers}
+                {output}
             </div>
         );
     }

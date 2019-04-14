@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
-import { Typography, Button, Tooltip } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
-import ServerStatusIcon from './ServerStatusIcon';
+import ServerCardStatusIcon from './ServerCardStatusIcon';
 
 
 class ServerCard extends React.Component {
@@ -23,7 +23,7 @@ class ServerCard extends React.Component {
             <Card>
                 <CardHeader
                     action={
-                        <ServerStatusIcon status={this.props.status} />
+                        <ServerCardStatusIcon status={this.props.status} />
                     }
                     title={this.props.serverName}
                     subheader={`${this.props.ipAddress}:${this.props.port}`}
