@@ -16,7 +16,7 @@ class Server(BaseModel, db.Model):
         db.UniqueConstraint('ip_address', 'port', name='ip_port_unique_constraint'),
     )
 
-    __serialize_fields__ = ['server_name', 'ip_address', 'port', 'status', 'country', 'description']
+    __serialize_fields__ = ['id', 'server_name', 'ip_address', 'port', 'status', 'country', 'description']
 
     id = db.Column(db.Integer, primary_key=True)
     ip_address = db.Column(db.String(39), nullable=False) # 39 = max length for ipv6
