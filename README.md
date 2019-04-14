@@ -17,6 +17,7 @@ This simple web application presents a list of (game or regular) servers which a
 * Python 3.6.*
 
 ### Installation
+Please note that in the future, this will be automated using either a simple shell script, or docker. There will be two versions; one for development, and one for production.
 
 To install all dependencies (assure you have **Python 3.6.\***, this project does not support Python 3.7.* since Celery does not);
 ```bash
@@ -69,11 +70,15 @@ To run the app,
 # start the redis-server
 redis-server
 
-# start the flask app
+# start the flask REST API
 export FLASK_APP=run_flask.py
 flask run
 # or flask run -h 0.0.0.0 -p 8000 for host, port args
 
 # start the celery process and beat workers
 celery worker --beat -A run_celery.celery --loglevel=debug # you decide log level
+
+# start React for frontend
+cd src/http/web/app
+npm run start
 ```
