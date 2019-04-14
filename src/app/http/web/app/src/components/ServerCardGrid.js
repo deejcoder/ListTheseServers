@@ -45,12 +45,12 @@ class ServerCardGrid extends React.Component {
     render() {
 
         // organize cards into a grid (e.g 4xN matrix)
-        let grid = [], output = [], servers = this.state.servers;
+        let grid = [], servers = this.state.servers;
         while(servers.length) grid.push(servers.splice(0, 4));
 
-        grid.map((row) => {
-            output.push(
-                <Grid container spacing={8}>
+        let output = grid.map((row, index) => {
+            return (
+                <Grid key={index} container spacing={8}>
                     <Grid container item xs={5} spacing={24}>
                         <ServerCardGridRow items={row} />
                     </Grid>

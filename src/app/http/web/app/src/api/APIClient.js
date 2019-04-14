@@ -11,9 +11,6 @@ const client = axios.create({
 
 
 class APIClient {
-    constructor() {
-
-    }
 
     async getServers() {
         let data = await this.perform('get', '/servers');

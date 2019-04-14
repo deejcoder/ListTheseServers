@@ -9,12 +9,11 @@ class ServerCardGridRow extends React.Component {
     render() {
 
         // create a card for each server
-        let servers = []
-        Object.values(this.props.items).map((server, index) => {
-            servers.push(
-                <Grid item xs={5}>
+        let items = this.props.items;
+        let servers = items.map((server, index) => {
+            return (
+                <Grid key={index} item xs={5}>
                     <ServerCard
-                        key={index}
                         serverName={server.server_name}
                         ipAddress={server.ip_address}
                         port={server.port}
@@ -22,7 +21,7 @@ class ServerCardGridRow extends React.Component {
                         status={server.status}
                     />
                 </Grid>
-            )
+            );
         })
 
         return (

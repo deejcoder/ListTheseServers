@@ -13,9 +13,6 @@ class ServerCard extends React.Component {
      * @param {*} props 
      */
 
-    constructor(props) {
-        super(props);
-    }
 
     render() {
 
