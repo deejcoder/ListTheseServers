@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@material-ui/core';
 
-import APIClient from '../api/APIClient';
+import APIClient from '../../api/APIClient';
 import ServerCardGridRow from './ServerCardGridRow';
 
 class ServerCardGrid extends React.Component {
