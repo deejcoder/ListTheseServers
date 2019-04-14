@@ -6,8 +6,9 @@ circular imports while still creating readable code
 from flask import Flask
 
 
-from serverlist.tasks import celery
-from serverlist import routes, models
+from app.servers.tasks import celery
+from app.servers import models
+from app.http.api import endpoints
 
 
 class Factory:
@@ -87,4 +88,4 @@ class Factory:
         """
         Register blueprints here
         """
-        self.app.register_blueprint(routes.bp, url_prefix='')
+        self.app.register_blueprint(endpoints.bp, url_prefix='')
