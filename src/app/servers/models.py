@@ -39,6 +39,22 @@ class Server(BaseModel, db.Model):
     def __repr__(self):
         return f'<Server ({self.id}): {self.server_name}>' 
 
+    @classmethod
+    def create_server(cls, ip_address: str, port: int, server_name: str, 
+        country: str, description: str, tags=[]):
+        """
+        Simple wrapper to creating a server, adding tags when needed
+        """
+
+        server = Server(ip_address, port, server_name, country, description)
+        db.session.add(server)
+        db.session.commit()
+
+        for tag_text in tags:
+            tag = Tag(server.id, tag_text)
+            db.session.add(tag)
+
+
 
 class ServerActivity(BaseModel, db.Model):
     """
@@ -53,3 +69,16 @@ class ServerActivity(BaseModel, db.Model):
         self.server_id = server_id
         self.timestamp = timestamp
         self.status = status
+
+
+class ServerTag(BaseModel, db.Model):
+    """
+    Allows servers to have many tags
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    server_id = db.Column(db.Integer, db.ForeignKey('servers.id'), nullable=False)
+    text = db.Column(db.String(30), nullable=False)
+
+    def __init__(self, server_id, text):
+        self.server_id = server_id
+        self.text = text

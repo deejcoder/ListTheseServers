@@ -13,7 +13,7 @@ from app.common.models import db
 from .models import Server, ServerActivity
 
 # Init
-celery = Celery('serverlist', autofinalize=False)
+celery = Celery('app.servers', autofinalize=False)
 
 
 # Tasks
@@ -73,7 +73,7 @@ def add_activity_log(server):
 # Conf
 BEAT_SCHEDULE = {
     "server-status-check-task": {
-        "task": "serverlist.tasks.check_servers_availability",
+        "task": "app.servers.tasks.check_servers_availability",
         "schedule": 20.0
     }
 }

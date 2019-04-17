@@ -81,6 +81,7 @@ class Factory:
         
 
         self.celery.Task = AppContextTask
+        self.celery.autodiscover_tasks(['app.servers'])
         self.celery.finalize()
 
 
