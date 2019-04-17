@@ -1,5 +1,5 @@
 # ListTheseServers
-This simple web application presents a list of (game or regular) servers which are filterable. Clients may add servers, which are to be approved by site moderators. The web application will automatically ping the servers to determine their connectivity. These pings will occur periodically in the background every 20 seconds and broadcast to any existing clients; updating the server list.
+A web application containing a collection of servers around the world. These servers may have tags, and will be filterable and searchable by tags. Want to find a server for your game? Search the tag. This web application will also track downtime of these servers and handle reports. Anyone may add a server.
 
 
 
@@ -10,16 +10,17 @@ This simple web application presents a list of (game or regular) servers which a
 * PostgreSQL
 * Redis
 * React
+* Docker
 
 ### Prerequisites
 
-* Ubuntu 16.0.4/Debian 9
+* Ubuntu 16.0.4/Debian 9 (no Windows support)
 * Python 3.6.*
 
 ### Installation
 Please note that in the future, this will be automated using either a simple shell script, or docker. There will be two versions; one for development, and one for production.
 
-To install all dependencies (assure you have **Python 3.6.\***, this project does not support Python 3.7.* since Celery does not);
+To install all dependencies (assure you have **Python 3.6.\***, this project does not support Python 3.7.* since Celery 4 does not, please wait for Celery 5);
 ```bash
 # create a virtual environment & activate it
 sudo apt-get install virtualenv
@@ -82,3 +83,9 @@ celery worker --beat -A run_celery.celery --loglevel=debug # you decide log leve
 cd src/http/web/app
 npm run start
 ```
+
+
+### Recommended setup for when we grow
+- One server to serve the REST API; potentially in the future many Redis nodes. A load balancer could be used here too as well as rate limiting
+- One server to serve the frontend (React)
+- One server to serve the database
