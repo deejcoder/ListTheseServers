@@ -4,6 +4,7 @@ import { Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
 import { Typography, Button } from '@material-ui/core';
 
 import ServerCardStatusIcon from './ServerCardStatusIcon';
+import ServerActivityDialog from '../activity/ServerActivityDialog';
 
 
 class ServerCard extends React.Component {
@@ -32,7 +33,7 @@ class ServerCard extends React.Component {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" color="primary">View</Button>
+                    <ServerActivityDialog serverName={this.props.serverName} />
                     <Button size="small" color="primary">Copy</Button>
                 </CardActions>
             </Card>
