@@ -17,4 +17,3 @@ def json_response(payload, status=200):
         return jsonify(list=result), status
 
     return jsonify(payload), status
-    

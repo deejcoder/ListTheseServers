@@ -5,6 +5,13 @@ Database model:
 """
 
 from app.common.models import db, BaseModel
+from enum import Enum
+
+
+class Perm(Enum):
+    Guest = 0
+    User = 1
+    Admin = 2
 
 
 class Server(BaseModel, db.Model):
@@ -41,19 +48,19 @@ class Server(BaseModel, db.Model):
 
     @classmethod
     def create_server(cls, ip_address: str, port: int, server_name: str, 
-        country: str, description: str, tags=[]):
+        country: str, description: str, tags=''):
         """
         Simple wrapper to creating a server, adding tags when needed
         """
 
         server = Server(ip_address, port, server_name, country, description)
         db.session.add(server)
-        db.session.commit()
 
         for tag_text in tags:
-            tag = Tag(server.id, tag_text)
+            tag = ServerTag(server.id, tag_text)
             db.session.add(tag)
 
+        db.session.commit()
 
 
 class ServerActivity(BaseModel, db.Model):

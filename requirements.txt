@@ -4,4 +4,5 @@ flask-cors
 flask-migrate
 flask-script
 flask-sqlalchemy
-redis
+psycopg2
+pyjwt

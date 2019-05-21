@@ -28,6 +28,7 @@ class Pinger:
 
     @staticmethod
     def _do_ping(m, t):
+        # TODO: imp _do_ping
         pass
 
     def ping(self, method=None, target=None, async_callback=None):
@@ -45,7 +46,6 @@ class Pinger:
             t = target
         if not self._check_param(m, t):
             raise ValueError("Invalid Ping Argument: {} => {}".format(str(m), str(t)))
-        # TODO: imp do_ping
         if async_callback:
             if not callable(async_callback):
                 raise TypeError("Invalid Ping Callback")
