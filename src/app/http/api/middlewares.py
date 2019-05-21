@@ -28,3 +28,31 @@ def login_required(f):
         
         return f(*args, **kwargs)
     return wrap
+
+
+def current_user_is_admin():
+    pass
+
+
+def server_belongs_to_current_user(id):
+    if id is None:
+        return False
+    pass
+
+
+def admin_or_owner(f):
+    """
+    function has to be defined as f(..., id, ...) and called as f(..., id=id, ...)
+    :param f: function
+    :return: bool
+    """
+    @login_required
+    def wrap(*args, **kwargs):
+        server_id = None
+        if 'id' in kwargs:
+            server_id = kwargs['id']
+        if current_user_is_admin() or server_belongs_to_current_user(server_id):
+            return f(*args, **kwargs)
+        else:
+            return json.dumps({'error': 'insufficient permission'}), 403, {'Content-type': 'application/json'}
+    return wrap

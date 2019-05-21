@@ -4,9 +4,6 @@ from flask import current_app
 
 db = SQLAlchemy()
 
-class Serializable:
-    pass
-
 
 class BaseModel(db.Model):
     __abstract__ = True

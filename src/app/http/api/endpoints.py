@@ -3,114 +3,97 @@ import time
 from flask import Blueprint, request
 from sqlalchemy import desc
 
-from .middlewares import login_required
 from app.common import json_response
 from app.servers.models import Server, ServerActivity
+from app.common.handler import serverHandler, userHandler, pingHandler, ddnsHandler
 from flask_cors import CORS
 
 
 bp = Blueprint('endpoints', __name__)
 CORS(bp)
 
+"""
+While using X-Handler, pass `id` argument (server id) as kwargs, so decorator `admin_or_owned` will work.
+"""
+
 
 @bp.route('/api/servers/')
 def servers_list():
     """ returns all servers sorted by status """
     # TODO: filters and paging
-    servers = Server.query.order_by(desc(Server.status)).all()
-    return json_response(servers)
+    return serverHandler.get_all()
 
 
-@login_required
 @bp.route('/api/server/get/')
 def server_get():
     """
     get a list of server that belongs to current user
     :return:
     """
-    pass
+    return serverHandler.get_owned()
 
 
 @bp.route("/api/server/activity/<id>/")
 def server_activity(id):
     """ Returns server activity as JSON, with correct format for graph """
-
-    activity = ServerActivity.query.filter_by(server_id=id)
-
-    # format with correct date/time, and status
-    activity_formatted = map(
-        lambda r : [
-            r.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-            1 if r.status else 0
-        ],
-        activity
-    )
-
-    activity = {
-        'interval_s': 30 * 60, # 30 minutes
-        'data': list(activity_formatted)
-    }
-
-    return json_response(activity)
+    return serverHandler.get_activity(id=id)
 
 
-@login_required
 @bp.route('/api/server/add/', methods=['POST'])
 def server_add():
-    # total count limit
-    pass
+    # TODO: uplimit
+    serverinfo = request.get_json()
+    return serverHandler.add(serverinfo=serverinfo)
 
 
-@login_required
 @bp.route('/api/server/del/<id>/')
 def server_del(id):
-    # check if id belongs to current user, or admin
-    pass
+    return serverHandler.delete(id=id)
 
 
-@login_required
-@bp.route('/api/server/update/', methods=['POST'])
-def server_update():
-    # check if id belongs to current user, or admin
-    pass
+@bp.route('/api/server/update/<id>/', methods=['POST'])
+def server_update(id):
+    serverinfo = request.get_json()
+    return serverHandler.update(id=id, serverinfo=serverinfo)
 
 
-@login_required
-@bp.route('/api/server/ping/<id>/')
-def server_ping():
+@bp.route('/api/server/report/<id>/')
+def server_report(id):
+    return serverHandler.report(id=id)
+
+
+@bp.route('/api/ping/<id>/')
+def ping(id):
     """
     trigger a ping manually, refresh status
     """
-    # check if id belongs to current user, or admin
-    pass
+    return pingHandler.ping_sync(id=id)
 
 
-@login_required
-@bp.route('/api/server/report/<id>/')
-def server_report(id):
-    pass
-
-
-@login_required
-@bp.route('/api/ddns/add/', methods=['POST'])
-def server_ddns_add():
+@bp.route('/api/ddns/add/<id>/', methods=['POST'])
+def ddns_add(id):
     """
-    server_id, custom_subdomain,
-    :return: success or not
+    add a custom_subdomain to server_id
     """
-    # check if id belongs to current user, or admin
-    pass
+    ddnsinfo = request.get_json()
+    return ddnsHandler.add(id=id, ddnsinfo=ddnsinfo)
 
 
-@login_required
 @bp.route('/api/ddns/del/<id>/')
-def server_ddns_del(id):
-    # check if id belongs to current user, or admin
-    pass
+def ddns_del(id):
+    """
+    :param id: server id
+    """
+    return ddnsHandler.delete(id=id)
 
 
-@login_required
-@bp.route('/api/ddns/update/', methods=['POST'])
-def server_ddns_update():
-    # check if id belongs to current user, or admin
-    pass
+@bp.route('/api/ddns/update/<id>/', methods=['POST'])
+def ddns_update(id):
+    """
+    :param id: server id
+    """
+    ddnsinfo = request.get_json()
+    return ddnsHandler.update(id=id, ddnsinfo=ddnsinfo)
+
+
+# TODO: User api
