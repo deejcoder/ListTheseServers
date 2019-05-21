@@ -20,13 +20,13 @@ def servers_list():
     return serverHandler.get_all()
 
 
-@bp.route('/api/server/get/')
-def server_get():
+@bp.route('/api/server/get/<id>/')
+def server_get(id):
     """
-    get a list of server that belongs to current user
+    get a list of server that belongs to a user
     :return:
     """
-    return serverHandler.get_owned()
+    return serverHandler.get_owned(id)
 
 
 @bp.route("/api/server/activity/<id>/")

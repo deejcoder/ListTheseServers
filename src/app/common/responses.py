@@ -1,7 +1,7 @@
 from flask import jsonify
 from app.servers.models import db
 
-def to_dict(queryresult):
+def _to_dict(queryresult):
     # untested conversion. patch later.
     # TODO: check conversion
     d = dict(queryresult.__dict__)     # copy
@@ -15,10 +15,10 @@ def json_response(payload, status=200):
     * Also, if class belongs to BaseModel, call as_dict first to serialize
     """
     if isinstance(payload, db.Model):
-        return jsonify(to_dict(payload)), status
+        return jsonify(_to_dict(payload)), status
 
     if isinstance(payload, list):
-        result = [to_dict(payload) if isinstance(item, db.Model) else item for item in payload]
+        result = [_to_dict(payload) if isinstance(item, db.Model) else item for item in payload]
         return jsonify(list=result), status
 
     return jsonify(payload), status

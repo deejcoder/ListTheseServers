@@ -37,9 +37,8 @@ def send_ping_request(serverid):
     server.status = True if check == 0 else False
     db.session.commit()
 
-
     # check if last ping was longer than 30 minutes ago, if so add record; can prune this later
-    if server.last_ping:
+    if server.last_ping_id:
         try:
             last_ping = ServerActivity.query.get(server.last_ping)
 
@@ -56,12 +55,10 @@ def send_ping_request(serverid):
 
 
 def add_activity_log(server):
-    log = ServerActivity(server_id=server.id, timestamp=datetime.datetime.now(), status=server.status)
-    db.session.add(log)
-    # commit first so we can get an ID
-    db.session.commit()
-
-    server.last_ping = log.id
+    activity = ServerActivity(server=server, status=server.status)
+    db.session.add(activity)
+    db.session.flush()  # refresh PK
+    server.last_ping = activity
     db.session.commit()
 
 
