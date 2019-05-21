@@ -1,10 +1,6 @@
 import time
 
 from flask import Blueprint, request
-from sqlalchemy import desc
-
-from app.common import json_response
-from app.servers.models import Server, ServerActivity
 from app.common.handler import serverHandler, userHandler, pingHandler, ddnsHandler
 from flask_cors import CORS
 
@@ -41,7 +37,6 @@ def server_activity(id):
 
 @bp.route('/api/server/add/', methods=['POST'])
 def server_add():
-    # TODO: uplimit
     serverinfo = request.get_json()
     return serverHandler.add(serverinfo=serverinfo)
 
@@ -65,9 +60,9 @@ def server_report(id):
 @bp.route('/api/ping/<id>/')
 def ping(id):
     """
-    trigger a ping manually, refresh status
+    trigger a ping manually, refresh status in frontend after a while
     """
-    return pingHandler.ping_sync(id=id)
+    return pingHandler.ping_async(id=id)
 
 
 @bp.route('/api/ddns/add/<id>/', methods=['POST'])

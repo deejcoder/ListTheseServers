@@ -31,6 +31,7 @@ class ServerHandler:
 
     @login_required
     def add(self, serverinfo):
+        # TODO: uplimit
         pass
 
     @admin_or_owner

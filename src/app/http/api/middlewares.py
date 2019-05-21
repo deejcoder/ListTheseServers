@@ -2,7 +2,6 @@ import json
 from functools import wraps, partial
 from flask import abort, g, request
 from jwt import decode, exceptions
-from app.servers.models import Perm
 
 
 def login_required(f):

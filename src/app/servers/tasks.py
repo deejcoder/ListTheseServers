@@ -6,14 +6,10 @@ This is mainly for pinging servers to determine their availability
 # from celery.utils.log import get_task_logger
 import os
 
-from celery import Celery
 import datetime
 
-from app.common.models import db
+from manage import db, celery
 from .models import Server, ServerActivity
-
-# Init
-celery = Celery('app.servers', autofinalize=False)
 
 
 # Tasks
@@ -34,7 +30,7 @@ def check_servers_availability():
 def send_ping_request(serverid):
 
     server = Server.query.filter_by(id=serverid).first()
-    check = os.system(f"ping -c 1 {server.ip_address}")
+    check = os.system(f"ping -c 1 {server.hostname}")
 
     # True if the server is online
     old_status = server.status
